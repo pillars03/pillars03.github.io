@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如何设置一个30分钟过期的Session我在面试的时候, 经常会问一个问题: “如何设置一个30分钟过期的Session?”, 大家不要觉得看似简单, 这里面包含的知识挺多, 特别适合考察基本功是否扎实, 谁来回答试试? 呵呵为什么问这个问题呢? 1. 我在Twitter上看到了有人讨论这个问题, 2 想起来我经常问这个问题, 所以~~在这里, 我来解答下这个题目.第一种回答那么, 最常见的一种回">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何设置一个30分钟过期的Session">
+<meta property="og:url" content="http://yoursite.com/2017/02/08/Session/index.html">
+<meta property="og:site_name" content="孙国栋的博客">
+<meta property="og:description" content="如何设置一个30分钟过期的Session我在面试的时候, 经常会问一个问题: “如何设置一个30分钟过期的Session?”, 大家不要觉得看似简单, 这里面包含的知识挺多, 特别适合考察基本功是否扎实, 谁来回答试试? 呵呵为什么问这个问题呢? 1. 我在Twitter上看到了有人讨论这个问题, 2 想起来我经常问这个问题, 所以~~在这里, 我来解答下这个题目.第一种回答那么, 最常见的一种回">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-26T06:54:32.126Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何设置一个30分钟过期的Session">
+<meta name="twitter:description" content="如何设置一个30分钟过期的Session我在面试的时候, 经常会问一个问题: “如何设置一个30分钟过期的Session?”, 大家不要觉得看似简单, 这里面包含的知识挺多, 特别适合考察基本功是否扎实, 谁来回答试试? 呵呵为什么问这个问题呢? 1. 我在Twitter上看到了有人讨论这个问题, 2 想起来我经常问这个问题, 所以~~在这里, 我来解答下这个题目.第一种回答那么, 最常见的一种回">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/08/Session/"/>
+
+
+
+
+
+  <title>如何设置一个30分钟过期的Session | 孙国栋的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孙国栋的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/08/Session/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pillars Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙国栋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何设置一个30分钟过期的Session</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-08T03:18:57+08:00">
+                2017-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="如何设置一个30分钟过期的Session"><a href="#如何设置一个30分钟过期的Session" class="headerlink" title="如何设置一个30分钟过期的Session"></a>如何设置一个30分钟过期的Session</h1><p>我在面试的时候, 经常会问一个问题: “如何设置一个30分钟过期的Session?”, 大家不要觉得看似简单, 这里面包含的知识挺多, 特别适合考察基本功是否扎实, 谁来回答试试? 呵呵<br>为什么问这个问题呢? 1. 我在Twitter上看到了有人讨论这个问题, 2 想起来我经常问这个问题, 所以~~<br>在这里, 我来解答下这个题目.<br>第一种回答<br>那么, 最常见的一种回答是: 设置Session的过期时间, 也就是session.gc_maxlifetime, 这种回答是不正确的, 原因如下:</p>
+<ol>
+<li>首先, 这个PHP是用一定的概率来运行session的gc的, 也就是session.gc_probability和session.gc_divisor(介绍参看 深入理解PHP原理之Session Gc的一个小概率Notice), 这个默认的值分别是1和100, 也就是有1%的机会, PHP会在一个Session启动时, 运行Session gc. 不能保证到30分钟的时候一定会过期.</li>
+<li>那设置一个大概率的清理机会呢? 还是不妥, 为什么? 因为PHP使用stat Session文件的修改时间来判断是否过期, 如果增大这个概率一来会降低性能, 二来, PHP使用”一个”文件来保存和一个会话相关的Session变量, 假设我5分钟前设置了一个a=1的Session变量, 5分钟后又设置了一个b=2的Seesion变量, 那么这个Session文件的修改时间为添加b时刻的时间, 那么a就不能在30分钟的时候, 被清理了. 另外还有下面第三个原因.</li>
+<li>PHP默认的(Linux为例), 是使用/tmp 作为Session的默认存储目录, 并且手册中也有如下的描述:<br>Note: 如果不同的脚本具有不同的 session.gc_maxlifetime 数值但是共享了同一个地方存储会话数据，则具有最小数值的脚本会清理数据。此情况下，与 session.save_path 一起使用本指令。<br>也就是说, 如果有俩个应用都没有指定自己独立的save_path, 一个设置了过期时间为2分钟(假设为A), 一个设置为30分钟(假设为B), 那么每次当A的Session gc运行的时候, 就会同时删除属于应用B的Session files.<br>所以, 第一种答案是不”完全严格”正确的.<br>第二种答案<br>还有一种常见的答案是: 设置Session ID的载体, Cookie的过期时间, 也就是session.cookie_lifetime. 这种回答也是不正确的, 原因如下:<br>这个过期只是Cookie过期, 换个说法这点就考察Cookie和Session的区别, Session过期是服务器过期, 而Cookie过期是客户端(浏览器)来保证的, 即使你设置了Cookie过期, 这个只能保证标准浏览器到期的时候, 不会发送这个Cookie(包含着Session ID), 而如果通过构造请求, 还是可以使用这个Session ID的值.<br>第三种答案<br>使用memcache, redis等, okey, 这种答案是一种正确答案. 不过, 很显然出题者肯定还会接着问你, 如果只是使用PHP呢?<br>第四种答案<br>当然, 面试不是为了难道你, 而是为了考察思考的周密性. 在这个过程中我会提示出这些陷阱, 所以一般来说, 符合题意的做法是:</li>
+<li>设置Cookie过期时间30分钟, 并设置Session的lifetime也为30分钟.</li>
+<li>自己为每一个Session值增加Time stamp.</li>
+<li>每次访问之前, 判断时间戳.<br>最后, 有同学问, 为什么要设置30分钟的过期时间: 这个, 首先这是为了面试, 第二, 实际使用场景的话, 比如30分钟就过期的优惠劵?</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/08/输出缓冲区/" rel="next" title="flush和ob_flush(转自laruence的博客)">
+                <i class="fa fa-chevron-left"></i> flush和ob_flush(转自laruence的博客)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/13/瞎吐槽/" rel="prev" title="瞎吐槽">
+                瞎吐槽 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Pillars Sun</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何设置一个30分钟过期的Session"><span class="nav-number">1.</span> <span class="nav-text">如何设置一个30分钟过期的Session</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pillars Sun</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
