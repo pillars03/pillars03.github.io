@@ -229,6 +229,250 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/28/记一次导出线上日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pillars Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙国栋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/28/记一次导出线上日志/" itemprop="url">记一次导出线上日志</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T10:32:20+08:00">
+                2018-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="首先打包目录："><a href="#首先打包目录：" class="headerlink" title="首先打包目录："></a>首先打包目录：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -czvf /tmp/log_20180626.tar.gz 20180626/</span><br></pre></td></tr></table></figure>
+<h3 id="下载打包文件"><a href="#下载打包文件" class="headerlink" title="下载打包文件"></a>下载打包文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">从服务器下载到测试机</span><br><span class="line">scp root@fuwuqi:/tmp/log_20180626.tar.gz /tmp/log_20180626.tar.gz</span><br><span class="line">从测试机下载到本地</span><br><span class="line">scp ceshiji:/tmp/log_20180626.tar.gz .</span><br></pre></td></tr></table></figure>
+<h3 id="本地跑脚本合并文件"><a href="#本地跑脚本合并文件" class="headerlink" title="本地跑脚本合并文件"></a>本地跑脚本合并文件</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_allfiles</span><span class="params">($path, &amp;$files)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (is_dir($path)) &#123;</span><br><span class="line">        $dp = dir($path);</span><br><span class="line">        <span class="keyword">while</span> ($file = $dp-&gt;read()) &#123;</span><br><span class="line">            <span class="keyword">if</span> ($file != <span class="string">"."</span> &amp;&amp; $file != <span class="string">".."</span>) &#123;</span><br><span class="line">                get_allfiles($path . <span class="string">"/"</span> . $file, $files);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        $dp-&gt;close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (is_file($path)) &#123;</span><br><span class="line">        $files[] = $path;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_filenamesbydir</span><span class="params">($dir)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $files = <span class="keyword">array</span>();</span><br><span class="line">    get_allfiles($dir, $files);</span><br><span class="line">    <span class="keyword">return</span> $files;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$filenames = get_filenamesbydir(<span class="string">"20180626"</span>);  </span><br><span class="line"><span class="comment">//打印所有文件名，包括路径  </span></span><br><span class="line">$log = fopen(<span class="string">'log'</span>, <span class="string">'a+'</span>);</span><br><span class="line"><span class="keyword">foreach</span> ($filenames <span class="keyword">as</span> $value) &#123;</span><br><span class="line">    <span class="keyword">foreach</span> ($value <span class="keyword">as</span> $v) &#123;</span><br><span class="line">        $str = file_get_contents($v);</span><br><span class="line">        fwrite($log, $str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fclose($log);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/一次两层循环优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pillars Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙国栋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/27/一次两层循环优化/" itemprop="url">一次两层循环优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T10:10:14+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>记一次优化，着急测试，直接了个两层循环，越看越不爽，想办法优化到了一层<br>需求是吧一组邀请码按照房间创建的顺序添加group_id;<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">"sub_live_rooms"=[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">23456789</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">456789876</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line">"codes"=[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">23456789</span>,</span><br><span class="line">        <span class="attr">"code"</span>:<span class="number">222</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">456789876</span>,</span><br><span class="line">        <span class="attr">"code"</span>:<span class="number">222</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">456789876</span>,</span><br><span class="line">        <span class="attr">"code"</span>:<span class="number">333</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h2 id="第一版代码"><a href="#第一版代码" class="headerlink" title="第一版代码"></a>第一版代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$gid = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">foreach</span> ($sub_live_rooms <span class="keyword">as</span> $sub_live_room) &#123;</span><br><span class="line">    <span class="keyword">foreach</span> ($codes <span class="keyword">as</span> &amp;$code) &#123;</span><br><span class="line">        <span class="keyword">if</span> ($code[<span class="string">'room_id'</span>] == $sub_live_room[<span class="string">'room_id'</span>]) &#123;</span><br><span class="line">            $code[<span class="string">'group_id'</span>] = $gid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $gid++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> $codes;</span><br></pre></td></tr></table></figure>
+<h2 id="第二版代码"><a href="#第二版代码" class="headerlink" title="第二版代码"></a>第二版代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$gid = <span class="number">2</span>;</span><br><span class="line">$room_ids = array_column($sub_live_rooms, <span class="string">'room_id'</span>);</span><br><span class="line">$room_ids = array_flip($room_ids);</span><br><span class="line">$codes = array_map(<span class="function"><span class="keyword">function</span> <span class="params">($v)</span> <span class="title">use</span> <span class="params">($room_ids, $gid)</span> </span>&#123;</span><br><span class="line">    $v[<span class="string">'group_id'</span>] = $room_ids[$v[<span class="string">'room_id'</span>]] + $gid;</span><br><span class="line">    <span class="keyword">return</span> $v;</span><br><span class="line">&#125;, $codes);</span><br><span class="line"><span class="keyword">echo</span> $codes;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/面试问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1209,254 +1453,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/13/约瑟夫斯问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Pillars Sun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孙国栋的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/13/约瑟夫斯问题/" itemprop="url">约瑟夫斯问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-13T05:05:19+08:00">
-                2017-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>约瑟夫斯问题（有时也称为约瑟夫斯置换），是一个出现在计算机科学和数学中的问题。在计算机编程的算法中，类似问题又称为约瑟夫环。<br>有  n个囚犯站成一个圆圈，准备处决。首先从一个人开始数，并杀掉第k个人。接着数，并杀掉第k个人。这个过程沿着圆圈一直进行，直到最终只剩下一个人留下，这个人就可以继续活着。<br>问题是，给定了n和k，一开始要站在什么地方才能避免被处决？</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/13/约瑟夫斯问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/13/javascript delete关键字/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Pillars Sun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孙国栋的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/13/javascript delete关键字/" itemprop="url">javascript delete关键字</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-13T05:05:19+08:00">
-                2017-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>javascript delete关键字</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/13/javascript delete关键字/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1507,7 +1503,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

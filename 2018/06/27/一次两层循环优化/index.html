@@ -79,20 +79,17 @@
 
 
 
-<meta name="description" content="今天有个需求要匹配”【标签a】”,这样的字符（方括号中有文字）。下面记录一下我遇到的坑">
+<meta name="description" content="记一次优化，着急测试，直接了个两层循环，越看越不爽，想办法优化到了一层需求是吧一组邀请码按照房间创建的顺序添加group_id;12345678910111213141516171819202122&quot;sub_live_rooms&quot;=[    &amp;#123;        &quot;room_id&quot;:23456789    &amp;#125;,    &amp;#123;        &quot;room_id&quot;:45678987">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PHP字符串正则匹配中文的问题">
-<meta property="og:url" content="http://yoursite.com/2017/08/09/PHP字符串正则匹配中文的问题/index.html">
+<meta property="og:title" content="一次两层循环优化">
+<meta property="og:url" content="http://yoursite.com/2018/06/27/一次两层循环优化/index.html">
 <meta property="og:site_name" content="孙国栋的博客">
-<meta property="og:description" content="今天有个需求要匹配”【标签a】”,这样的字符（方括号中有文字）。下面记录一下我遇到的坑">
+<meta property="og:description" content="记一次优化，着急测试，直接了个两层循环，越看越不爽，想办法优化到了一层需求是吧一组邀请码按照房间创建的顺序添加group_id;12345678910111213141516171819202122&quot;sub_live_rooms&quot;=[    &amp;#123;        &quot;room_id&quot;:23456789    &amp;#125;,    &amp;#123;        &quot;room_id&quot;:45678987">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ouepvhejb.bkt.clouddn.com/a6462ae4-d3be-4bf9-9f7a-b98d1f409c25.png">
-<meta property="og:image" content="http://ouepvhejb.bkt.clouddn.com/7013ef36-2512-4cdf-8f71-f625c11743b8.png">
-<meta property="og:updated_time" content="2018-06-26T06:54:32.108Z">
+<meta property="og:updated_time" content="2018-06-28T02:31:25.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP字符串正则匹配中文的问题">
-<meta name="twitter:description" content="今天有个需求要匹配”【标签a】”,这样的字符（方括号中有文字）。下面记录一下我遇到的坑">
-<meta name="twitter:image" content="http://ouepvhejb.bkt.clouddn.com/a6462ae4-d3be-4bf9-9f7a-b98d1f409c25.png">
+<meta name="twitter:title" content="一次两层循环优化">
+<meta name="twitter:description" content="记一次优化，着急测试，直接了个两层循环，越看越不爽，想办法优化到了一层需求是吧一组邀请码按照房间创建的顺序添加group_id;12345678910111213141516171819202122&quot;sub_live_rooms&quot;=[    &amp;#123;        &quot;room_id&quot;:23456789    &amp;#125;,    &amp;#123;        &quot;room_id&quot;:45678987">
 
 
 
@@ -122,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/09/PHP字符串正则匹配中文的问题/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/27/一次两层循环优化/"/>
 
 
 
 
 
-  <title>PHP字符串正则匹配中文的问题 | 孙国栋的博客</title>
+  <title>一次两层循环优化 | 孙国栋的博客</title>
   
 
 
@@ -235,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/PHP字符串正则匹配中文的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/一次两层循环优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Pillars Sun">
@@ -252,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PHP字符串正则匹配中文的问题</h1>
+          <h1 class="post-title" itemprop="name headline">一次两层循环优化</h1>
         
 
         <div class="post-meta">
@@ -264,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T05:05:19+08:00">
-                2017-08-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T10:10:14+08:00">
+                2018-06-27
               </time>
             
 
@@ -302,24 +299,9 @@
       
 
       
-        <p>今天有个需求要匹配”【标签a】”,这样的字符（方括号中有文字）。下面记录一下我遇到的坑</p>
-<a id="more"></a>
-<h3 id="js正则匹配"><a href="#js正则匹配" class="headerlink" title="js正则匹配"></a>js正则匹配</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"【fjkldjsfkl号安徽】"</span>.match(<span class="regexp">/【[\u4e00-\u9fa5_a-zA-Z0-9]*】/g</span>);</span><br></pre></td></tr></table></figure>
-<p><img src="http://ouepvhejb.bkt.clouddn.com/a6462ae4-d3be-4bf9-9f7a-b98d1f409c25.png" alt="">  </p>
-<p>这段代码是有效的，能匹配到目标字符，但是这段正则放到php的结果就不一样的，看下面的代码;</p>
-<h3 id="php"><a href="#php" class="headerlink" title="php"></a>php</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$content= <span class="string">'【嘿嘿ddddd】'</span>;</span><br><span class="line">var_dump($content);</span><br><span class="line">preg_match(<span class="string">'/【[\u4e00-\u9fa5_a-zA-Z0-9]*】/u'</span>,$content, $matches, PREG_OFFSET_CAPTURE);</span><br><span class="line">var_dump($matches);</span><br><span class="line"><span class="keyword">exit</span>();</span><br></pre></td></tr></table></figure>
-<p>输出如图：<br><img src="http://ouepvhejb.bkt.clouddn.com/7013ef36-2512-4cdf-8f71-f625c11743b8.png" alt=""></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先要注意一个问题，坑了很长时间，php的在匹配中文的时候切记要加上加上UTF8修饰符，具体的在这篇文章中有解释<br><a href="https://segmentfault.com/q/1010000004153832" target="_blank" rel="noopener">PHP字符串中用正则表达式匹配中文出现乱码</a><br>php的正则应该怎么写呢，在一篇博客中找到了解释，原文在这  </p>
-<p><a href="http://www.cnblogs.com/devcjq/articles/5059017.html" target="_blank" rel="noopener">中文的简单正则匹配</a></p>
-<p>我摘录一下主要内容：  </p>
-<ul>
-<li>在PHP中使用正则匹配中文，很多时候会出现问题，在不同的编码情况下，正则表达式不太一样，所以希望大家注意，在使用正则匹配中文的时候，多多注意编码问题。</li>
-<li>在JS下能够使用的在PHP中不一定可以使用，比如：/^[a-zA-Z0-9_.\＿\．\u4E00-\u9FA5\uF900-\uFA2D]+$/;</li>
-<li><p>如果在PHP中使用 ：\u4E00-\u9FA5\uF900-\uFA2D 来匹配，那么会在运行PHP脚本的时候出现错误，Warning: preg_match(): Compilation failed: PCRE does not support \L, \l, \N, \P, \p, \U, \u, or \X at offset 6 那是因为：PHP正则表达式中不支持下列 Perl 转义序列：\L, \l, \N, \P, \p, \U, \u, or \X  </p>
-</li>
-<li><p>但是在在 UTF-8 模式下，允许用“\x{…}”。<br>所以我们的代码应该这么写：  </p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$content= <span class="string">'【嘿嘿ddddd】'</span>;</span><br><span class="line">var_dump($content);</span><br><span class="line">preg_match(<span class="string">'/【[\x&#123;4e00&#125;-\x&#123;9fa5&#125;A-Za-z0-9_]*】/u'</span>,$content, $matches, PREG_OFFSET_CAPTURE);</span><br><span class="line">var_dump($matches);</span><br><span class="line"><span class="keyword">exit</span>();</span><br></pre></td></tr></table></figure></li>
-</ul>
+        <p>记一次优化，着急测试，直接了个两层循环，越看越不爽，想办法优化到了一层<br>需求是吧一组邀请码按照房间创建的顺序添加group_id;<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">"sub_live_rooms"=[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">23456789</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">456789876</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line">"codes"=[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">23456789</span>,</span><br><span class="line">        <span class="attr">"code"</span>:<span class="number">222</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">456789876</span>,</span><br><span class="line">        <span class="attr">"code"</span>:<span class="number">222</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"room_id"</span>:<span class="number">456789876</span>,</span><br><span class="line">        <span class="attr">"code"</span>:<span class="number">333</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h2 id="第一版代码"><a href="#第一版代码" class="headerlink" title="第一版代码"></a>第一版代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$gid = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">foreach</span> ($sub_live_rooms <span class="keyword">as</span> $sub_live_room) &#123;</span><br><span class="line">    <span class="keyword">foreach</span> ($codes <span class="keyword">as</span> &amp;$code) &#123;</span><br><span class="line">        <span class="keyword">if</span> ($code[<span class="string">'room_id'</span>] == $sub_live_room[<span class="string">'room_id'</span>]) &#123;</span><br><span class="line">            $code[<span class="string">'group_id'</span>] = $gid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $gid++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> $codes;</span><br></pre></td></tr></table></figure>
+<h2 id="第二版代码"><a href="#第二版代码" class="headerlink" title="第二版代码"></a>第二版代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$gid = <span class="number">2</span>;</span><br><span class="line">$room_ids = array_column($sub_live_rooms, <span class="string">'room_id'</span>);</span><br><span class="line">$room_ids = array_flip($room_ids);</span><br><span class="line">$codes = array_map(<span class="function"><span class="keyword">function</span> <span class="params">($v)</span> <span class="title">use</span> <span class="params">($room_ids, $gid)</span> </span>&#123;</span><br><span class="line">    $v[<span class="string">'group_id'</span>] = $room_ids[$v[<span class="string">'room_id'</span>]] + $gid;</span><br><span class="line">    <span class="keyword">return</span> $v;</span><br><span class="line">&#125;, $codes);</span><br><span class="line"><span class="keyword">echo</span> $codes;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -344,8 +326,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/17/node第三方模块/" rel="next" title="Node.js里Cannot find moudle（针对第三方模块）">
-                <i class="fa fa-chevron-left"></i> Node.js里Cannot find moudle（针对第三方模块）
+              <a href="/2018/03/07/面试问题/" rel="next" title="面试问题">
+                <i class="fa fa-chevron-left"></i> 面试问题
               </a>
             
           </div>
@@ -354,8 +336,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/16/REST/" rel="prev" title="REST">
-                REST <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/28/记一次导出线上日志/" rel="prev" title="记一次导出线上日志">
+                记一次导出线上日志 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -470,7 +452,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#js正则匹配"><span class="nav-number">1.</span> <span class="nav-text">js正则匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php"><span class="nav-number">2.</span> <span class="nav-text">php</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一版代码"><span class="nav-number">1.</span> <span class="nav-text">第一版代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二版代码"><span class="nav-number">2.</span> <span class="nav-text">第二版代码</span></a></li></ol></div>
             
 
           </div>
